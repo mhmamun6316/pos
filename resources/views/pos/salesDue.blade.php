@@ -10,6 +10,9 @@
     .bg-primary th{
         color: white!important;
     }
+    .form-group{
+        margin-bottom: 5px;
+    }
 </style>
 @endsection
 
@@ -74,8 +77,16 @@
               <input type="hidden" class="order_id" name="order_id">
               <div class="modal-body">
                   <div class="form-group">
-                    <label for=""><span class="error">*</span> Due Payment </label>
+                    <label for=""><span class="error">*</span> Payment Amount </label>
                     <input type="text" name="due_payment" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for=""><span class="error">*</span> Payment Date</label>
+                    <input type="date" name="payment_date" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for=""> Remarks</label>
+                    <textarea name="remarks" class="form-control" cols="30" rows="5"></textarea>
                   </div>
               </div>
               <div class="modal-footer">

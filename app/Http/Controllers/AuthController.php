@@ -39,14 +39,14 @@ class AuthController extends Controller
         $alerts = Product::whereColumn('alert_quantity', '>=', 'quantity')->with('outlet')->get();
 
         $today_sell = DB::table('sales')
-                     ->whereDate('created_at',$current_date)
                      ->when($outlet != 0, function ($query) use ($outlet) {
                         $query->where('sales.outlet_id', $outlet);
                      })
+                     ->whereDate('sales.created_at',$current_date)
                      ->sum('sales.total');
 
         $monthly_sell = DB::table('sales')
-                     ->whereMonth('created_at',$current_month)
+                     ->whereMonth('sales.created_at',$current_month)
                      ->when($outlet != 0, function ($query) use ($outlet) {
                         $query->where('sales.outlet_id', $outlet);
                      })
@@ -69,13 +69,15 @@ class AuthController extends Controller
                      ->first();
 
         $monthly_gross_profit = DB::table('sales')
+                    ->select(
+                        DB::raw('sum(sales.total) as sums')
+                        )
                      ->leftjoin('sale_items','sale_items.order_id','=','sales.id')
                      ->leftjoin('products','sale_items.product_id','=','products.id')
-                     ->select(
-                         DB::raw('sum(sales.total) - sum(products.inc_purchase_price * sale_items.qty) as sums')
-                         )
                      ->whereMonth('sales.created_at',$current_month)
                      ->first();
+
+        // dd($monthly_gross_profit);
 
         $yearly_gross_profit = DB::table('sales')
                      ->leftjoin('sale_items','sale_items.order_id','=','sales.id')
@@ -112,11 +114,14 @@ class AuthController extends Controller
         $monthly_net_profit = $monthly_gross_profit->sums - $monthly_expenses;
         $yearly_net_profit = $yearly_gross_profit->sums - $yearly_expenses;
 
+        $products =Product::orderBy('name','ASC')->with('brand','outlet','category','subcategory')->get();
+
+        $qty = Product::sum('quantity');
 
         return view('index',compact([
             'alerts',
             'today_sell',
-            'monthly_sell', 
+            'monthly_sell',
             'yearly_sell',
             'current_month_name',
             'today_gross_profit',
@@ -127,7 +132,9 @@ class AuthController extends Controller
             'yearly_expenses',
             'today_net_profit',
             'monthly_net_profit',
-            'yearly_net_profit'
+            'yearly_net_profit',
+            'products',
+            'qty'
         ]));
     }
 

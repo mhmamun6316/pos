@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\SaleItem;
+use App\Models\SaleDue;
 use Illuminate\Http\Request;
 use Cart;
 use Carbon\Carbon;
@@ -191,9 +192,12 @@ class SaleController extends Controller
         $sales = DB::table('sales')
                  ->where('sales.status','Due')
                  ->join('outlets','sales.outlet_id','outlets.id')
+                 ->join('sale_dues','sales.id','sale_dues.order_id')
                  ->join('customers','sales.customer_id','customers.id')
-                 ->select('sales.*','outlets.name as outlet_name','customers.name as customer_name')
+                 ->select('sales.*','sale_dues.*','outlets.name as outlet_name','customers.name as customer_name')
                  ->get();
+
+        // dd($sales);
 
         return view('pos.salesDue',compact('sales'));
     }
@@ -205,5 +209,13 @@ class SaleController extends Controller
             $sale->status = "Paid";
         }
         $sale->save();
+
+        $saleDue = new SaleDue;
+        $saleDue->order_id = $request->order_id;
+        $saleDue->payment_dat = $request->payment_date;
+        $saleDue->note = $request->note;
+        $saleDue->save();
+
+        return back();
     }
 }
