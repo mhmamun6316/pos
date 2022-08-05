@@ -32,6 +32,7 @@
                     <th>Status</th>
                     <th>Total</th>
                     <th>Due Amount</th>
+                    <th>Last Payment</th>
                     <th>Actions</th>
                   </tr>
               </thead>
@@ -40,11 +41,14 @@
               @endphp
               <tbody id="tableBody" class="text-center">
                   @foreach ($sales as $sale)
+                  @php
+                      $n = count($sale->dueSale);
+                  @endphp
                   <tr>
                      <td>{{ $sl++ }}</td>
                      <td>{{ $sale->invoice_no }}</td>
-                     <td>{{ $sale->outlet_name }}</td>
-                     <td>{{ $sale->customer_name }}</td>
+                     <td>{{ $sale->outlet->name }}</td>
+                     <td>{{ $sale->customer->name }}</td>
                      <td>
                         @if ($sale->status == "Paid")
                             <span class="badge bg-primary">{{ $sale->status }}</span>
@@ -54,6 +58,13 @@
                      </td>
                      <td>{{ $sale->total }}</td>
                      <td>{{ $sale->due_amount }}</td>
+                     <td>
+                        @if ($n >= 1)
+                          {{ $sale->dueSale[$n-1]->payment_dat }}
+                        @else
+                          {{ $sale->created_at->format('Y-m-d') }}
+                        @endif
+                     </td>
                      <td>
                         <button class="btn btn-sm btn-primary payBtn" value="{{ $sale->id }}">Pay</button>
                      </td>

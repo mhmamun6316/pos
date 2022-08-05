@@ -189,15 +189,24 @@ class SaleController extends Controller
     }
 
     public function salesDue(){
-        $sales = DB::table('sales')
-                 ->where('sales.status','Due')
-                 ->join('outlets','sales.outlet_id','outlets.id')
-                 ->join('sale_dues','sales.id','sale_dues.order_id')
-                 ->join('customers','sales.customer_id','customers.id')
-                 ->select('sales.*','sale_dues.*','outlets.name as outlet_name','customers.name as customer_name')
-                 ->get();
 
-        // dd($sales);
+        $sales = Sale::with('dueSale','customer','outlet')
+                ->where('sales.status','Due')
+                ->get();
+        // $sales = DB::table('sales')
+        //          ->where('sales.status','Due')
+        //          ->join('outlets','sales.outlet_id','outlets.id')
+        //          ->join('sale_dues','sales.id','sale_dues.order_id')
+        //          ->join('customers','sales.customer_id','customers.id')
+        //          ->select('sales.*','sale_dues.*','outlets.name as outlet_name','customers.name as customer_name')
+        //          ->get();
+
+        // dd($sales[0]->outlet);
+
+        // foreach($sales as $sale){
+        //     echo count($sale->dueSale);
+        //     // dd(count($sale->dueSale));
+        // }
 
         return view('pos.salesDue',compact('sales'));
     }

@@ -34,7 +34,7 @@
           <div class="card">
             <div class="card-header">
               <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $today_gross_profit->sums =='null' ? "null" : 0 }}</h2>
+                <h2 class="fw-bolder mb-0">৳ {{ $today_gross_profit->sums }}</h2>
                 <p class="card-text">Today Gross Profit</p>
               </div>
               <div class="avatar bg-light-success p-50 m-0">
@@ -100,7 +100,7 @@
             <div class="card-header">
               <div>
                 <h2 class="fw-bolder mb-0">৳ {{ $monthly_gross_profit->sums }}</h2>
-                <p class="card-text">Gross Profit In {{ $current_month_name }}</p>
+                <p class="card-text">Gross Profit {{ $current_month_name }}</p>
               </div>
               <div class="avatar bg-light-success p-50 m-0">
                 <div class="avatar-content">
@@ -257,7 +257,7 @@
                 </tbody>
                 <tfoot class="text-center">
                       <tr>
-                         <td colspan="3"><b>Total:</b></td>
+                         <td colspan="2"><b>Total:</b></td>
                          <td><b>{{ $total_quantity }}PC</b></td>
                          <td><b>{{ $total_by_purchase }}TK</b></td>
                          <td><b>{{ $total_by_sell }}TK</b></td>

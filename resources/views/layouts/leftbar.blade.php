@@ -6,7 +6,7 @@
 
 <div class="main-menu-content">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-      <li class="{{ ($prefix->uri=='dashboard') ? 'active' :'' }} nav-item"><a class="d-flex    align-items-center" href="{{ route('dashboard') }}"><i class="fa fas fa-tachometer-alt"></i><span      class="menu-title text-truncate" data-i18n="Calendar">Dashboard</span></a>
+      <li class="{{ ($prefix->uri=='dashboard') ? 'active' :'' }} nav-item"><a class="d-flex   align-items-center" href="{{ route('dashboard') }}"><i class="fa fas fa-tachometer-alt"></i><span      class="menu-title text-truncate" data-i18n="Calendar">Dashboard</span></a>
       </li>
       @if (Auth::user()->id == 1)
         <li class="{{ ($prefix->uri=='users') ? 'active' :'' }} nav-item"><a class="d-flex align-items-center" href="{{ route('users.index') }}"><i class="fa fas fa-users"></i><span class="menu-title text-truncate" data-i18n="Calendar">Users</span></a>
@@ -68,6 +68,21 @@
           <li><a class="d-flex align-items-center" href="{{ route('category.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">Expense Category</span></a>
           </li>
         </ul>
+      </li>
+
+      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('today.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Today Report</span></a>
+      </li>
+
+      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('monthly.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Current Month Report</span></a>
+      </li>
+
+      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('yearly.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Yearly Month Report</span></a>
+      </li>
+
+      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('customer.due.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Customer Due Report</span></a>
+      </li>
+
+      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('top.product.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Top Products</span></a>
       </li>
 
     </ul>

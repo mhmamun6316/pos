@@ -27,7 +27,6 @@ class ProductController extends Controller
     }
 
     public function getAll($outlet = 0,$brand = 0,$category = 0,$subcategory = 0,$start_date=0,$to_date){
-
         $user_id = User::ROLE[Auth::user()->role_id];
         $user = Auth::user();
 
@@ -59,7 +58,6 @@ class ProductController extends Controller
             ->select('products.*','outlets.name as outlet_name','brands.name as brand_name','categories.name as categories_name' )
             ->get();
 
-        // return response($products,"okk");
         return response()->json([
             'role' => $user_id,
             'products' => $products

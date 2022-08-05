@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html class="loading dark-layout" lang="en" data-layout="dark-layout" data-textdirection="ltr">
+<html class="loading light-layout" lang="en" data-layout="light-layout" data-textdirection="ltr">
   <!-- BEGIN: Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -74,7 +74,7 @@
 
 
     <!-- BEGIN: Main Menu-->
-    <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+    <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true" style="overflow-y: auto">
       <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
           <li class="nav-item me-auto"><a class="navbar-brand" href="../../../html/ltr/vertical-menu-template-dark/index.html"><span class="brand-logo">

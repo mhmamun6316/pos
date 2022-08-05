@@ -14,6 +14,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,3 +104,11 @@ Route::resource('sales',SaleController::class);
 
 // pdf print
 Route::get('sale/pdf/{id}', [PosController::class, 'saleGenerate'])->name('sales.generate');
+
+// all reports
+Route::get('today/report',[ReportController::class,'todayReport'])->name('today.report');
+Route::get('monthly/report',[ReportController::class,'monthlyReport'])->name('monthly.report');
+Route::get('yearly/report',[ReportController::class,'yearlyReport'])->name('yearly.report');
+Route::get('customer/due/report',[ReportController::class,'customerDueReport'])->name('customer.due.report');
+Route::get('customer/due/report/data/{start?}/{end?}',[ReportController::class,'customerDueReportData']);
+Route::get('top/products',[ReportController::class,'topProduct'])->name('top.product.report');

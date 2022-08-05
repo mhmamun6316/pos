@@ -42,7 +42,7 @@
 
 @section('main_content')
 
-<form id="addForm" action="{{ route('sales.store') }}" enctype="multipart/form-data" method="POST">
+<form id="addForm" action="{{ route('sales.store') }}" target="_blank" enctype="multipart/form-data" method="POST">
     @csrf
     <section id="add-customer" style="margin-top: -1.5rem">
         <div class="row">
@@ -147,12 +147,6 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">Discount (%)</label>
-                    <input type="number" class="percent_disc" name="percent_disc" placeholder="0">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
                     <label for="">Mode</label>
                     <select name="payment_mode" id="" class="form-select">
                         <option value="Cash">Cash</option>
@@ -164,18 +158,18 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
+                    <label for="">Cheque No</label>
+                    <input type="number" name="check_no" id="" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
                     <label for="">Pay </label>
                     <input type="number" class="form-control" name="paid_amount" value="0">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Cheque No</label>
-                    <input type="number" name="check_no" id="" class="form-control">
-                </div>
-            </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Installment type</label>
@@ -289,11 +283,11 @@
                         <tr class="cart-total text-center">
                             <td colspan="1" class="text-right">Total: ৳ <span class="min_total">${response.cartTotal}</span></td>
 
-                            <td colspan="1" class="text-right">MD'S Disc:  <input type="number" class="md_disc" name="md_disc" placeholder="0" style="width:50%"></td>
-
                             <td colspan="1" class="text-right">Special Disc: <input type="number" name="special_disc" class="special_disc" placeholder="0" style="width:50%"></td>
 
                             <td colspan="1" class="text-right">Vat(%): <input class="vat" type="number" name="vat" placeholder="0" style="width:50%"></td>
+
+                            <td colspan="1" class="text-right">Discount (%): <input type="number" class="percent_disc" name="percent_disc" placeholder="0" style="width:50%"></td>
 
                             <td colspan="1" class="text-right">
                                 Payable: <input class="grand_total" type="number" name="grand_total" placeholder="0" style="width:50%" value="${response.cartTotal}">
@@ -359,15 +353,11 @@
         });
      }
 
-     var md_discount = 0;
      var special_disc = 0;
      var percent_disc = 0;
      var vat = 0;
 
      $(document).on('click','.calculateBtn',function(){
-        if($('.md_disc').val()){
-            md_discount = Number($('.md_disc').val())
-        }
         if($('.special_disc').val()){
             special_disc = Number($('.special_disc').val())
         }
@@ -379,44 +369,17 @@
         }
 
         min_total = Number($('.min_total').text());
-        min_total = min_total - md_discount - special_disc;
+
+        var p_vat = Math.round((min_total * vat) / 100)
+        min_total += p_vat;
+
+        min_total -= special_disc;
 
         var p_discount = Math.round((min_total * percent_disc) / 100);
         min_total -= p_discount;
 
-        var p_vat = Math.round((min_total * vat) / 100)
-        min_total -= p_vat;
-
-        // alert(min_total);
         $('.grand_total').val(min_total);
      });
-
-    //  $(document).on("keyup",'.md_disc',function(){
-    //     md_discount = Number($(this).val())
-    //     min_total = Number($('.min_total').text());
-
-    //     grand_total = min_total - md_discount - special_disc + vat;
-    //     $('.grand_total').text(grand_total);
-    //  });
-
-    //  $(document).on("keyup",'.special_disc',function(){
-    //     special_disc = Number($(this).val())
-    //     min_total = Number($('.min_total').text());
-
-    //     grand_total = min_total - md_discount - special_disc + vat;
-    //     $('.grand_total').text(grand_total);
-    //  });
-
-    //  $(document).on("keyup",'.vat',function(){
-    //     vat = Number($(this).val())
-    //     grand_total = Number($('.grand_total').text());
-
-    //     vat_total = Math.ceil(( vat/100 ) * grand_total)
-    //     alert(grand_total);
-
-    //     grand_total = grand_total - md_discount - special_disc + vat_total;
-    //     $('.grand_total').text(grand_total);
-    //  });
 
 </script>
 @endsection

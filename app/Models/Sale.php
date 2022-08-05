@@ -11,4 +11,16 @@ class Sale extends Model
 
     protected $guarded = [];
 
+    public function dueSale(){
+        return $this->hasMany(SaleDue::class,'order_id','id');
+    }
+
+    public function outlet(){
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
+
 }
