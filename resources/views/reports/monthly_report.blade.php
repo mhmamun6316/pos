@@ -44,13 +44,13 @@
     </div>
 
 </div>
-<input type="button" onclick="printDiv('printableArea')" value="print a div!" />
-<div class="row" >
 
-    <div class="col-lg-6 col-md-6 col-sm-12" id="printableArea">
+<div class="row" >
+    <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-             <div class="card-header bg-primary">
+             <div class="card-header bg-primary d-flex justify-between">
                   <h5 class="card-title text-white"><strong>Monthly Sell Products</strong></h5>
+                  <a class="btn btn-success" target="blank" href="{{ route('monthly.sell.product') }}">PRINT</a>
              </div>
 
              <div class="card-body">
@@ -80,9 +80,10 @@
 
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-             <div class="card-header bg-danger">
-                  <h5 class="card-title text-white"><strong>Monthlys Expenses</strong></h5>
-             </div>
+            <div class="card-header bg-danger d-flex justify-between">
+                <h5 class="card-title text-white"><strong>Monthly Expenses</strong></h5>
+                <a class="btn btn-success" target="blank" href="{{ route('monthly.expenses') }}">PRINT</a>
+           </div>
 
              <div class="card-body">
                 <table class="example table table-striped table-bordered" style="width:100%">
@@ -148,17 +149,5 @@
                     "pageLength": 10
                 });
             });
-    </script>
-    <script>
-        function printDiv(divName) {
-     var printContents = document.getElementById(divName).innerHTML;
-     var originalContents = document.body.innerHTML;
-
-     document.body.innerHTML = printContents;
-
-     window.print();
-
-     document.body.innerHTML = originalContents;
-}
     </script>
 @endsection

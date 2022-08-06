@@ -83,7 +83,7 @@
             <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('monthly.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Current Month</span></a>
             </li>
 
-            <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('yearly.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Yearly Month</span></a>
+            <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('yearly.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Yearly</span></a>
             </li>
 
             <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('customer.due.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Customer Due</span></a>

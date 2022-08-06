@@ -112,3 +112,13 @@ Route::get('yearly/report',[ReportController::class,'yearlyReport'])->name('year
 Route::get('customer/due/report',[ReportController::class,'customerDueReport'])->name('customer.due.report');
 Route::get('customer/due/report/data/{start?}/{end?}',[ReportController::class,'customerDueReportData']);
 Route::get('top/products',[ReportController::class,'topProduct'])->name('top.product.report');
+
+// all reports print
+Route::get('today/sell/products',[ReportController::class,'todaySell'])->name('today.sell.product');
+Route::get('today/expenses',[ReportController::class,'todayExpenses'])->name('today.expenses');
+
+Route::get('monthly/sell/products',[ReportController::class,'monthlySell'])->name('monthly.sell.product');
+Route::get('monthly/expenses',[ReportController::class,'monthlyExpenses'])->name('monthly.expenses');
+
+Route::get('yearly/sell/products',[ReportController::class,'yearlySell'])->name('yearly.sell.product');
+Route::get('yearly/expenses',[ReportController::class,'yearlyExpenses'])->name('yearly.expenses');

@@ -49,8 +49,9 @@
 
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-             <div class="card-header bg-primary">
-                  <h5 class="card-title text-white"><strong>Yearly Sell Products</strong></h5>
+             <div class="card-header bg-primary d-flex justify-between">
+                <h5 class="card-title text-white"><strong>Yearly Sell Products</strong></h5>
+                <a class="btn btn-success" target="blank" href="{{ route('yearly.sell.product') }}">PRINT</a>
              </div>
 
              <div class="card-body">
@@ -80,8 +81,9 @@
 
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-             <div class="card-header bg-danger">
-                  <h5 class="card-title text-white"><strong>Yearlys Expenses</strong></h5>
+             <div class="card-header bg-danger d-flex justify-between">
+                <h5 class="card-title text-white"><strong>Yearlys Expenses</strong></h5>
+                <a class="btn btn-success" target="blank" href="{{ route('yearly.expenses') }}">PRINT</a>
              </div>
 
              <div class="card-body">

@@ -12,6 +12,7 @@ use Image;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use PDF;
 
 class ReportController extends Controller
 {
@@ -207,5 +208,113 @@ class ReportController extends Controller
                     ->get();
 
         return view('reports.top_products_report',compact('topProducts'));
+    }
+
+    public function todaySell(){
+        $outlet = 0;
+        $date = Carbon::now();
+        $current_date = $date->format('Y-m-d');
+        $search = "whereDate";
+
+        $today_sell_products = $this->sellProducts($current_date,$search);
+
+        $data = [
+            'title' => 'Today Selling Products',
+            'products' => $today_sell_products->toArray(),
+        ];
+
+        $pdf = PDF::loadView('reports/print/invoice', $data);
+
+        return $pdf->stream();
+    }
+
+    public function todayExpenses(){
+        $outlet = 0;
+        $date = Carbon::now();
+        $current_date = $date->format('Y-m-d');
+        $search = "whereDate";
+
+        $today_expenses = $this->expenseTable($current_date,$search);
+
+        $data = [
+            'title' => 'Today Expenses',
+            'products' => $today_expenses->toArray(),
+        ];
+
+        $pdf = PDF::loadView('reports/print/expenseInvoice', $data);
+
+        return $pdf->stream();
+    }
+
+    public function monthlySell(){
+        $outlet = 0;
+        $date = Carbon::now();
+        $current_month = $date->format('m');
+        $search = "whereMonth";
+
+        $monthly_sell_products = $this->sellProducts($current_month,$search);
+
+        $data = [
+            'title' => 'Monthly Selling Products',
+            'products' => $monthly_sell_products->toArray(),
+        ];
+
+        $pdf = PDF::loadView('reports/print/invoice', $data);
+
+        return $pdf->stream();
+    }
+
+    public function monthlyExpenses(){
+        $outlet = 0;
+        $date = Carbon::now();
+        $current_month = $date->format('m');
+        $search = "whereMonth";
+
+        $monthly_expenses = $this->expenseTable($current_month,$search);
+
+        $data = [
+            'title' => 'Monthly Expenses',
+            'products' => $monthly_expenses->toArray(),
+        ];
+
+        $pdf = PDF::loadView('reports/print/expenseInvoice', $data);
+
+        return $pdf->stream();
+    }
+
+    public function yearlySell(){
+        $outlet = 0;
+        $date = Carbon::now();
+        $current_year = $date->format('Y');
+        $search = "whereYear";
+
+        $yearly_sell_products = $this->sellProducts($current_year,$search);
+
+        $data = [
+            'title' => 'Yearly Selling Products',
+            'products' => $yearly_sell_products->toArray(),
+        ];
+
+        $pdf = PDF::loadView('reports/print/invoice', $data);
+
+        return $pdf->stream();
+    }
+
+    public function yearlyExpenses(){
+        $outlet = 0;
+        $date = Carbon::now();
+        $current_year = $date->format('Y');
+        $search = "whereYear";
+
+        $yearly_expenses_datas = $this->expenseTable($current_year,$search);
+
+        $data = [
+            'title' => 'Yearly Expenses',
+            'products' => $yearly_expenses_datas->toArray(),
+        ];
+
+        $pdf = PDF::loadView('reports/print/expenseInvoice', $data);
+
+        return $pdf->stream();
     }
 }
