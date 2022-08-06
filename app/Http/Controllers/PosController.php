@@ -31,15 +31,16 @@ class PosController extends Controller
             ->select('sales.*','sale_items.*','outlets.name as outlet_name','customers.*')
             ->get();
 
+        $sale = $sales[0];
+
         $data = [
             'title' => 'Welcome to rakhi electronics',
             'date' => date('m/d/Y'),
-            'sales' => $sales
+            'sales' => $sales,
+            'sale' => $sale
         ];
 
-        //  dd($data);
-
-        $pdf = PDF::loadView('invoice', $data);
+        $pdf = PDF::loadView('reports/invoice', $data);
 
         return $pdf->stream();
     }

@@ -17,19 +17,17 @@
 
 <div class="row">
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card p-2 card-top">
-                <div class="row">
-                    <div class="col-md-5">
-                        <input type="date" class="form-control start_date" name="start_date" >
-                    </div>
-                    <div class="col-md-5">
-                        <input type="date" class="form-control end_date" name="end_date" >
-                    </div>
-                    <div class="col-md-2">
-                        <a class="btn btn-primary dateFilter" type="button">Filter</a>
-                    </div>
+    <div class="col-12">
+        <div class="card p-2 card-top">
+            <div class="row">
+                <div class="col-md-5">
+                    <input type="date" class="form-control start_date" name="start_date" >
+                </div>
+                <div class="col-md-5">
+                    <input type="date" class="form-control end_date" name="end_date" >
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-primary dateFilter" type="button">Filter</a>
                 </div>
             </div>
         </div>
@@ -51,22 +49,13 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody" class="text-center">
-                    {{-- @foreach ($dueCustomers as $item)
-                        <tr>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->email }}</td>
-                            <td>{{ $item->mobile_number }}</td>
-                            <td>{{ $item->address }}</td>
-                            <td>{{ $item->due_amount }}</td>
-                        </tr>
-                    @endforeach --}}
+
                 </tbody>
             </table>
             </div>
           </div>
         </div>
     </section>
-
 </div>
 
 @endsection

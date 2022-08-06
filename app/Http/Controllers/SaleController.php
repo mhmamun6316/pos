@@ -27,6 +27,7 @@ class SaleController extends Controller
                  ->join('outlets','sales.outlet_id','outlets.id')
                  ->join('customers','sales.customer_id','customers.id')
                  ->select('sales.*','outlets.name as outlet_name','customers.name as customer_name')
+                 ->orderBy('sales.id','DESC')
                  ->get();
 
         return view('pos.index',compact('sales'));
@@ -130,7 +131,7 @@ class SaleController extends Controller
 
         //  dd($data);
 
-        $pdf = PDF::loadView('invoice', $data);
+        $pdf = PDF::loadView('reports/invoice', $data);
 
         return $pdf->stream();
     }
@@ -193,20 +194,6 @@ class SaleController extends Controller
         $sales = Sale::with('dueSale','customer','outlet')
                 ->where('sales.status','Due')
                 ->get();
-        // $sales = DB::table('sales')
-        //          ->where('sales.status','Due')
-        //          ->join('outlets','sales.outlet_id','outlets.id')
-        //          ->join('sale_dues','sales.id','sale_dues.order_id')
-        //          ->join('customers','sales.customer_id','customers.id')
-        //          ->select('sales.*','sale_dues.*','outlets.name as outlet_name','customers.name as customer_name')
-        //          ->get();
-
-        // dd($sales[0]->outlet);
-
-        // foreach($sales as $sale){
-        //     echo count($sale->dueSale);
-        //     // dd(count($sale->dueSale));
-        // }
 
         return view('pos.salesDue',compact('sales'));
     }

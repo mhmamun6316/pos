@@ -44,10 +44,10 @@
     </div>
 
 </div>
+<input type="button" onclick="printDiv('printableArea')" value="print a div!" />
+<div class="row" >
 
-<div class="row">
-
-    <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="col-lg-6 col-md-6 col-sm-12" id="printableArea">
         <div class="card">
              <div class="card-header bg-primary">
                   <h5 class="card-title text-white"><strong>Monthly Sell Products</strong></h5>
@@ -148,5 +148,17 @@
                     "pageLength": 10
                 });
             });
+    </script>
+    <script>
+        function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
     </script>
 @endsection

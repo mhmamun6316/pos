@@ -42,7 +42,7 @@
 
 @section('main_content')
 
-<form id="addForm" action="{{ route('sales.store') }}" target="_blank" enctype="multipart/form-data" method="POST">
+<form id="addForm" action="{{ route('sales.store') }}" enctype="multipart/form-data" method="POST">
     @csrf
     <section id="add-customer" style="margin-top: -1.5rem">
         <div class="row">
@@ -192,7 +192,8 @@
 
     <div class="d-flex justify-content-end">
         <button type="button" class="calculateBtn btn btn-primary" style="margin-right: 5px;">Calculate</button>
-        <button type="submit" class="btn btn-success">Sale</button>
+
+        <a target="_blank" ><button type="submit" class="btn btn-success">Sale</button></a>
     </div>
 </form>
 @endsection

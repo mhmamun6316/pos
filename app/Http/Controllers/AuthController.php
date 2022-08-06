@@ -43,10 +43,12 @@ class AuthController extends Controller
                         $query->where('sales.outlet_id', $outlet);
                      })
                      ->whereDate('sales.created_at',$current_date)
+                     ->whereYear('created_at',$current_year)
                      ->sum('sales.total');
 
         $monthly_sell = DB::table('sales')
                      ->whereMonth('sales.created_at',$current_month)
+                     ->whereYear('created_at',$current_year)
                      ->when($outlet != 0, function ($query) use ($outlet) {
                         $query->where('sales.outlet_id', $outlet);
                      })
@@ -63,27 +65,28 @@ class AuthController extends Controller
                      ->leftjoin('sale_items','sale_items.order_id','=','sales.id')
                      ->leftjoin('products','sale_items.product_id','=','products.id')
                      ->select(
-                         DB::raw('sum(sales.total) - sum(products.inc_purchase_price * sale_items.qty) as sums')
+                         DB::raw('sum(products.inc_purchase_price * sale_items.qty) as sums')
                          )
                      ->whereDate('sales.created_at',$current_date)
+                     ->whereYear('sales.created_at',$current_year)
                      ->first();
 
         $monthly_gross_profit = DB::table('sales')
-                    ->select(
-                        DB::raw('sum(sales.total) as sums')
-                        )
+                     ->select(
+                        DB::raw('sum(products.inc_purchase_price * sale_items.qty) as sums')
+                      )
                      ->leftjoin('sale_items','sale_items.order_id','=','sales.id')
                      ->leftjoin('products','sale_items.product_id','=','products.id')
                      ->whereMonth('sales.created_at',$current_month)
+                     ->whereYear('sales.created_at',$current_year)
                      ->first();
 
-        // dd($monthly_gross_profit);
 
         $yearly_gross_profit = DB::table('sales')
                      ->leftjoin('sale_items','sale_items.order_id','=','sales.id')
                      ->leftjoin('products','sale_items.product_id','=','products.id')
                      ->select(
-                         DB::raw('sum(sales.total) - sum(products.inc_purchase_price * sale_items.qty) as sums')
+                         DB::raw('sum(products.inc_purchase_price * sale_items.qty) as sums')
                          )
                      ->whereYear('sales.created_at',$current_year)
                      ->first();
@@ -110,9 +113,9 @@ class AuthController extends Controller
                         ->sum('expenses.amount');
 
                         // dd($today_gross_profit);
-        $today_net_profit = $today_gross_profit->sums - $today_expenses;
-        $monthly_net_profit = $monthly_gross_profit->sums - $monthly_expenses;
-        $yearly_net_profit = $yearly_gross_profit->sums - $yearly_expenses;
+        $today_net_profit = $today_sell - $today_gross_profit->sums -  $today_expenses;
+        $monthly_net_profit = $monthly_sell - $monthly_gross_profit->sums - $monthly_expenses;
+        $yearly_net_profit = $yearly_sell - $yearly_gross_profit->sums - $yearly_expenses;
 
         $products =Product::orderBy('name','ASC')->with('brand','outlet','category','subcategory')->get();
 
@@ -124,6 +127,7 @@ class AuthController extends Controller
             'monthly_sell',
             'yearly_sell',
             'current_month_name',
+            'current_year',
             'today_gross_profit',
             'monthly_gross_profit',
             'yearly_gross_profit',

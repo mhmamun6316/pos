@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html class="loading dark-layout" lang="en" data-layout="dark-layout" data-textdirection="ltr">
+<html class="loading light-layout" lang="en" data-layout="light-layout" data-textdirection="ltr">
   <!-- BEGIN: Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,6 +36,14 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}assets/css/style.css">
     <!-- END: Custom CSS-->
+    <style>
+        body {
+            background-image: url('{{ asset('') }}bgimage.jpg') !important;
+            background-size:100% 100%;
+            background-attachment:fixed;
+            background-repeat:no-repeat;
+        }
+    </style>
 
   </head>
   <!-- END: Head-->
@@ -50,62 +58,61 @@
         <div class="content-header row">
         </div>
         <div class="content-body"><div class="auth-wrapper auth-basic px-2">
-  <div class="auth-inner my-2">
-    <!-- Login basic -->
-    <div class="card mb-0">
-      <div class="card-body">
-        <a href="" class="brand-logo">
-          <h2 class="brand-text text-primary ms-1">Point Of Sale</h2>
-        </a>
+            <div class="auth-inner my-2">
+                <!-- Login basic -->
+                <div class="card mb-0">
+                <div class="card-body">
+                    <a href="" class="brand-logo">
+                    <h2 class="brand-text text-primary ms-1">Rakhi Enterprise</h2>
+                    </a>
 
-        <h4 class="card-title mb-1">Welcome to Pos! 👋</h4>
-        <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
+                    {{-- <h4 class="card-title mb-1">Welcome to Pos! 👋</h4> --}}
+                    <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-          <div class="mb-1">
-            <label for="login-email" class="form-label" value="{{ __('Email') }}">Email</label>
-            <input
-              :value="old('email')"
-              type="text"
-              class="form-control"
-              id="login-email"
-              name="email"
-              placeholder="Enter your email here"
-              aria-describedby="login-email"
-              tabindex="1"
-              autofocus
-            />
-          </div>
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                    <div class="mb-1">
+                        <label for="login-email" class="form-label" value="{{ __('Email') }}">Email</label>
+                        <input
+                        :value="old('email')"
+                        type="text"
+                        class="form-control"
+                        id="login-email"
+                        name="email"
+                        placeholder="Enter your email here"
+                        aria-describedby="login-email"
+                        tabindex="1"
+                        autofocus
+                        />
+                    </div>
 
-          <div class="mb-1">
-            <div class="d-flex justify-content-between">
-              <label class="form-label" value="{{ __('Password') }}">Password</label>
+                    <div class="mb-1">
+                        <div class="d-flex justify-content-between">
+                        <label class="form-label" value="{{ __('Password') }}">Password</label>
+                        </div>
+                        <div class="input-group input-group-merge form-password-toggle">
+                        <input
+                            type="password"
+                            class="form-control form-control-merge"
+                            id="login-password"
+                            type="password"
+                            name="password"
+                            tabindex="2"
+                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                            aria-describedby="login-password"
+                        />
+                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100" tabindex="4">Sign in</button>
+                    </form>
+
+                    </div>
+                </div>
+                </div>
+                <!-- /Login basic -->
             </div>
-            <div class="input-group input-group-merge form-password-toggle">
-              <input
-                type="password"
-                class="form-control form-control-merge"
-                id="login-password"
-                type="password"
-                name="password"
-                tabindex="2"
-                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                aria-describedby="login-password"
-              />
-              <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
-            </div>
-          </div>
-          <button class="btn btn-primary w-100" tabindex="4">Sign in</button>
-        </form>
-
         </div>
-      </div>
-    </div>
-    <!-- /Login basic -->
-  </div>
-</div>
-
         </div>
       </div>
     </div>

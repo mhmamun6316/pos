@@ -20,7 +20,7 @@
             <div class="card-header" >
               <div>
                 <h2 class="fw-bolder mb-0">৳ {{ $today_sell }}</h2>
-                <p class="card-text">Today Sold</p>
+                <p class="card-text">Sold In Today</p>
               </div>
               <div class="avatar bg-light-primary p-50 m-0">
                 <div class="avatar-content">
@@ -34,8 +34,8 @@
           <div class="card">
             <div class="card-header">
               <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $today_gross_profit->sums }}</h2>
-                <p class="card-text">Today Gross Profit</p>
+                <h2 class="fw-bolder mb-0">৳ {{ empty($today_gross_profit->sums) ? 0 : $today_gross_profit->sums}}</h2>
+                <p class="card-text">Purchase In Today</p>
               </div>
               <div class="avatar bg-light-success p-50 m-0">
                 <div class="avatar-content">
@@ -51,7 +51,7 @@
             <div class="card-header">
               <div>
                 <h2 class="fw-bolder mb-0">৳ {{ $today_expenses }}</h2>
-                <p class="card-text">Today Expenses</p>
+                <p class="card-text">Expense In Today</p>
               </div>
               <div class="avatar bg-light-danger p-50 m-0">
                 <div class="avatar-content">
@@ -65,8 +65,8 @@
           <div class="card">
             <div class="card-header">
               <div>
-                <h2 class="fw-bolder mb-0">{{ $today_net_profit }}</h2>
-                <p class="card-text">Totday Net Profit</p>
+                <h2 class="fw-bolder mb-0">৳ {{ $today_net_profit }}</h2>
+                <p class="card-text">Profit In Today</p>
               </div>
               <div class="avatar bg-light-warning p-50 m-0">
                 <div class="avatar-content">
@@ -99,8 +99,8 @@
           <div class="card">
             <div class="card-header">
               <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $monthly_gross_profit->sums }}</h2>
-                <p class="card-text">Gross Profit {{ $current_month_name }}</p>
+                <h2 class="fw-bolder mb-0">৳ {{ empty($monthly_gross_profit->sums) ? 0 : $monthly_gross_profit->sums}} </h2>
+                <p class="card-text">Purchase In {{ $current_month_name }}</p>
               </div>
               <div class="avatar bg-light-success p-50 m-0">
                 <div class="avatar-content">
@@ -131,7 +131,7 @@
             <div class="card-header">
               <div>
                 <h2 class="fw-bolder mb-0">৳ {{ $monthly_net_profit }}</h2>
-                <p class="card-text">Monthly Net Profit</p>
+                <p class="card-text">Profit In {{ $current_month_name }}</p>
               </div>
               <div class="avatar bg-light-warning p-50 m-0">
                 <div class="avatar-content">
@@ -150,7 +150,7 @@
             <div class="card-header" >
               <div>
                 <h2 class="fw-bolder mb-0">৳ {{ (int)$yearly_sell }}</h2>
-                <p class="card-text">Sold In This Year</p>
+                <p class="card-text">Sold In {{ $current_year }}</p>
               </div>
               <div class="avatar bg-light-primary p-50 m-0">
                 <div class="avatar-content">
@@ -164,8 +164,8 @@
           <div class="card">
             <div class="card-header">
               <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $yearly_gross_profit->sums }}</h2>
-                <p class="card-text">Gross Profit This Year</p>
+                <h2 class="fw-bolder mb-0">৳ {{ empty($yearly_gross_profit->sums) ? 0 : $yearly_gross_profit->sums}}</h2>
+                <p class="card-text">Purchase In {{ $current_year }}</p>
               </div>
               <div class="avatar bg-light-success p-50 m-0">
                 <div class="avatar-content">
@@ -181,7 +181,7 @@
             <div class="card-header">
               <div>
                 <h2 class="fw-bolder mb-0">৳ {{ $yearly_expenses }}</h2>
-                <p class="card-text">Expenses This Year</p>
+                <p class="card-text">Expenses In {{ $current_year }}</p>
               </div>
               <div class="avatar bg-light-danger p-50 m-0">
                 <div class="avatar-content">
@@ -196,7 +196,7 @@
             <div class="card-header">
               <div>
                 <h2 class="fw-bolder mb-0">৳ {{ $yearly_net_profit }}</h2>
-                <p class="card-text">Yearly Net Profit</p>
+                <p class="card-text">Profit In {{ $current_year }}</p>
               </div>
               <div class="avatar bg-light-warning p-50 m-0">
                 <div class="avatar-content">
@@ -216,7 +216,7 @@
               <div class="d-flex justify-content-between mb-1">
                   <h4><i class="fa fa-exclamation-triangle text-yellow" aria-hidden="true"></i> Product Stock Available </h4>
               </div>
-              <table id="example" class="table table-striped table-bordered" style="width:100%">
+              <table class="example table table-striped table-bordered" style="width:100%">
                 <thead class="text-center">
                   <tr>
                       <th scope="col">Product</th>
@@ -226,7 +226,7 @@
                       <th scope="col">Current Stock Value <br> <small>(By purchase price)</small></th>
                       <th scope="col">Current Stock Value <br> <small>(By sale price)</small></th>
                       <th scope="col">Potential profit</th>
-                      <th scope="col">Total Unit Sold</th>
+                      {{-- <th scope="col">Total Unit Sold</th> --}}
                     </tr>
                 </thead>
                 <tbody id="tableBody" class="text-center">
@@ -251,18 +251,18 @@
                           <td>{{ $purchase}}TK</td>
                           <td>{{ $sell }}TK</td>
                           <td>{{ $sell - $purchase }}TK</td>
-                          <td>0PC</td>
+                          {{-- <td>0PC</td> --}}
                       </tr>
                     @endforeach
                 </tbody>
                 <tfoot class="text-center">
                       <tr>
-                         <td colspan="2"><b>Total:</b></td>
+                         <td colspan="3"><b>Total:</b></td>
                          <td><b>{{ $total_quantity }}PC</b></td>
                          <td><b>{{ $total_by_purchase }}TK</b></td>
                          <td><b>{{ $total_by_sell }}TK</b></td>
                          <td><b>{{ $total_by_sell - $total_by_purchase }}TK</b></td>
-                         <td><b>0PC</b></td>
+                         {{-- <td><b>0PC</b></td> --}}
                       </tr>
                 </tfoot>
             </table>
@@ -279,7 +279,7 @@
               <div class="d-flex justify-content-between mb-1">
                   <h4><i class="fa fa-exclamation-triangle text-yellow" aria-hidden="true"></i> Product Stock Alert <i class="fa fa-info-circle text-info hover-q no-print" data-bs-toggle="popover" data-bs-content="Products with low stock.Based on product alert quantity set in add product screen.Purchase this products before stock ends" data-bs-placement="bottom" data-bs-trigger="hover"></i></h4>
               </div>
-              <table id="example" class="table table-striped table-bordered" style="width:100%">
+              <table class="example table table-striped table-bordered" style="width:100%">
                   <thead class="text-center">
                     <tr>
                         <th scope="col">Name</th>
@@ -301,14 +301,13 @@
           </div>
         </div>
     </section>
-
 @endsection
 
 @section('script')
 
 <script>
     $(document).ready(function(){
-        $('#example').DataTable({
+        $('.example').DataTable({
             scrollX: true,
             "pageLength": 10
         });

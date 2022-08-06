@@ -25,6 +25,8 @@ class ReportController extends Controller
     }
 
     public function cost($current_date,$search){
+        $date = Carbon::now();
+        $current_year = $date->format('Y');
         return DB::table('sales')
                 ->leftjoin('sale_items','sale_items.order_id','=','sales.id')
                 ->leftjoin('products','sale_items.product_id','=','products.id')
@@ -32,15 +34,19 @@ class ReportController extends Controller
                     DB::raw('sum(products.inc_purchase_price * sale_items.qty) as sums')
                     )
                 ->$search('sales.created_at',$current_date)
+                ->whereYear('sales.created_at',$current_year)
                 ->first();
     }
 
     public function expense($outlet,$current_date,$search){
+        $date = Carbon::now();
+        $current_year = $date->format('Y');
         return DB::table('expenses')
                     ->when($outlet != 0, function ($query) use ($outlet) {
                         $query->where('expenses.outlet_id', $outlet);
                     })
                     ->$search('created_at',$current_date)
+                    ->whereYear('created_at',$current_year)
                     ->sum('expenses.amount');
     }
 

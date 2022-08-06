@@ -1,3 +1,8 @@
+<style>
+    .reports a{
+        margin-left: 1rem;
+    }
+</style>
 @php
   $prefix = Request::route();
   $route = Route::current()->getName();
@@ -56,10 +61,7 @@
         </ul>
       </li>
 
-      <li class="{{ ($prefix->uri=='customers') ? 'active' :'' }} nav-item"><a class="d-flex    align-items-center" href="{{ route('customers') }}"><i class="fas fa-user-circle"></i><span      class="menu-title text-truncate" data-i18n="Calendar">Customers</span></a>
-      </li>
-
-      <li class="nav-item"><a class="d-flex align-items-center" href="#"><i class="fab fa-sellcast"></i><span class="menu-title text-truncate" data-i18n="Invoice">Expenses</span></a>
+      <li class="nav-item"><a class="d-flex align-items-center" href="#"><i class="fa fas fa-minus-circle"></i><span class="menu-title text-truncate" data-i18n="Invoice">Expenses</span></a>
         <ul class="menu-content">
           <li><a class="d-flex align-items-center" href="{{ route('expenses.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">List Expenses</span></a>
           </li>
@@ -70,19 +72,26 @@
         </ul>
       </li>
 
-      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('today.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Today Report</span></a>
+      <li class="{{ ($prefix->uri=='customers') ? 'active' :'' }} nav-item"><a class="d-flex    align-items-center" href="{{ route('customers') }}"><i class="fas fa-user-circle"></i><span      class="menu-title text-truncate" data-i18n="Calendar">Customers</span></a>
       </li>
 
-      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('monthly.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Current Month Report</span></a>
-      </li>
+      <li class="nav-item"><a class="d-flex align-items-center" href="#"><i class="fa fas fa-chart-bar"></i><span class="menu-title text-truncate" data-i18n="Invoice">Reports</span></a>
+        <ul class="menu-content reports">
+            <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('today.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Today</span></a>
+            </li>
 
-      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('yearly.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Yearly Month Report</span></a>
-      </li>
+            <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('monthly.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Current Month</span></a>
+            </li>
 
-      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('customer.due.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Customer Due Report</span></a>
-      </li>
+            <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('yearly.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Yearly Month</span></a>
+            </li>
 
-      <li class="nav-item"><a class="d-flex    align-items-center" href="{{ route('top.product.report') }}"><i class="fas fa-user-circle"></i><span class="menu-title text-truncate" data-i18n="Calendar">Top Products</span></a>
+            <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('customer.due.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Customer Due</span></a>
+            </li>
+
+            <li class="nav-item"><a class="d-flex align-items-center" href="{{ route('top.product.report') }}"><i class="fas fa-arrow-circle-right"></i><span class="menu-title text-truncate" data-i18n="Calendar">Top Products</span></a>
+            </li>
+        </ul>
       </li>
 
     </ul>
