@@ -63,7 +63,7 @@
                 <div class="card mb-0">
                 <div class="card-body">
                     <a href="" class="brand-logo">
-                    <h2 class="brand-text text-primary ms-1">Rakhi Enterprise</h2>
+                    <h2 class="brand-text text-primary ms-1">Rakhi Electronics</h2>
                     </a>
 
                     {{-- <h4 class="card-title mb-1">Welcome to Pos! 👋</h4> --}}

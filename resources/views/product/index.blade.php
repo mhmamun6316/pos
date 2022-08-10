@@ -76,7 +76,6 @@
                     <th scope="col">Outlet</th>
                     <th scope="col">Brand</th>
                     <th scope="col">Category</th>
-                    {{-- <th scope="col">Sub Category</th> --}}
                     <th scope="col">Purchase Price</th>
                     <th scope="col">Selling Price</th>
                     <th scope="col">Action</th>
@@ -246,17 +245,19 @@
                                 <td>${role == 'Super-admin' ? item.inc_purchase_price  : " "}</td>
                                 <td>${item.selling_price}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-success viewBtn" value="${item.id}"><i class="fas fa-eye"></i></button>
-                                    <a href="{{ url('products/${item.id}/edit') }}" class="btn btn-sm btn-warning" value="${item.id}"><i class="fa fa-pencil-alt"></i></a>
-                                    <button class="btn btn-sm btn-danger deleteBtn" value="${item.id}"><i class="fas fa-trash"></i></button>
-                                </td>
+                                    <button class="btn btn-sm btn-success viewBtn" value="${item.id}"><i class="fas fa-eye"></i></button>`
+
+                                    if(role == 'Super-admin'){
+                                        cc += `<a href="{{ url('products/${item.id}/edit') }}" class="btn btn-sm btn-warning" value="${item.id}"><i class="fa fa-pencil-alt"></i></a>
+                                        <button class="btn btn-sm btn-danger deleteBtn" value="${item.id}"><i class="fas fa-trash"></i></button>`
+                                    }
+                               cc += `</td>
                             </tr>`
                     $('#tableBody').append(cc);
                 });
                 $('#example').DataTable({
                     scrollX: true,
                     scrollY: '300px',
-                    // stateSave: true,
                     "pageLength": 10
                 });
             }

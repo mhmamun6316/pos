@@ -83,11 +83,11 @@ Route::get('stock/transfers/accept/{id}',[StockTransferController::class,'stockA
 Route::get('stock/transfers/complete/{id}',[StockTransferController::class,'stockComplete']);
 
 // product sale
-Route::resource('pos',PosController::class);
 Route::post('add/to/pos/{id}',[PosController::class,'addToPos']);
 Route::get('pos/increment/{id}',[PosController::class,'incrementPos']);
 Route::get('pos/decrement/{id}',[PosController::class,'decrementPos']);
 Route::get('pos/remove/{id}',[PosController::class,'removePos']);
+Route::resource('pos',PosController::class);
 
 // customers
 Route::get('customers',[CustomerController::class,'index'])->name('customers');
