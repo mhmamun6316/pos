@@ -126,10 +126,9 @@ class SaleController extends Controller
         $data = [
             'title' => 'Welcome to rakhi electronics',
             'date' => date('m/d/Y'),
-            'sales' => $sales
+            'sales' => $sales,
+            'sale' => $sales[0]
         ];
-
-        //  dd($data);
 
         $pdf = PDF::loadView('reports/invoice', $data);
 
