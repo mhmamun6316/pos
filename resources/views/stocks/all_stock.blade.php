@@ -114,7 +114,7 @@
                         <div class="table-responsive mb-3">
                             <table class="table bg-gray">
                                 <thead>
-                                    <tr class="bg-primary">
+                                    <tr class="bg-success">
                                         <th>Name</th>
                                         <th>Qty</th>
                                         <th>Price</th>

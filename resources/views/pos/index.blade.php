@@ -28,6 +28,7 @@
                     <th>Customer</th>
                     <th>Status</th>
                     <th>Total</th>
+                    <th>Date</th>
                     <th>Actions</th>
                   </tr>
               </thead>
@@ -49,6 +50,7 @@
                         @endif
                      </td>
                      <td>{{ $sale->total }}</td>
+                     <td>{{ $sale->created_at }}</td>
                      <td>
                         <button class="btn btn-sm btn-success viewBtn" value="{{ $sale->id }}"><i class="fas fa-eye"></i></button>
                         <a href="{{ route('sales.generate',$sale->id) }}" target="_blank" class="btn btn-primary btn-sm text-white">Print</a>
@@ -96,7 +98,7 @@
                         <div class="table-responsive mb-3">
                             <table class="table bg-gray">
                                 <thead>
-                                    <tr class="bg-primary">
+                                    <tr class="bg-success">
                                         <th>Name</th>
                                         <th>Qty</th>
                                         <th>Price</th>
