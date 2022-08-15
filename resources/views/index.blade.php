@@ -2,8 +2,71 @@
 
 @section('css')
     <style>
-        .card{
+        .dashboard-cards{
+            margin-bottom: 1rem;
+        }
+        .dashboard-cards .card{
             height: 100%!important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard-cards .card h3{
+            color: white;
+        }
+
+        .dashboard-cards .card p{
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .card1{
+            background: rgb(102, 22, 144);
+        }
+
+        .card2{
+            background: #575fcf;
+        }
+
+        .card3{
+            background: rgb(34, 187, 108);
+        }
+
+        .card4{
+            background: rgb(253, 138, 90)
+        }
+
+        .card5{
+            background: #B53471;
+        }
+
+        .card6{
+            background: #006266;
+        }
+
+        .card7{
+            background: #1289A7;
+        }
+
+        .card8{
+            background: #833471;
+        }
+
+        .card9{
+            background: #16a085;
+        }
+
+        .card10{
+            background: #FF3F45;
+        }
+
+        .card11{
+            background: #ffc048;
+        }
+
+        .card12{
+            background: #34495e;
         }
 
         .text-yellow{
@@ -13,198 +76,88 @@
 @endsection
 
 @section('main_content')
-    {{-- daily calculations --}}
-    <div class="row">
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header" >
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $today_sell }}</h2>
-                <p class="card-text">Sold In Today</p>
-              </div>
-              <div class="avatar bg-light-primary p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu font-medium-5"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ empty($today_gross_profit->sums) ? 0 : $today_gross_profit->sums}}</h2>
-                <p class="card-text">Purchase In Today</p>
-              </div>
-              <div class="avatar bg-light-success p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server font-medium-5"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $today_expenses }}</h2>
-                <p class="card-text">Expense In Today</p>
-              </div>
-              <div class="avatar bg-light-danger p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity font-medium-5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                </div>
-              </div>
+    {{-- daily calculations --}}
+    <div class="row dashboard-cards">
+        <div class="col-md-3">
+            <div class="card card1">
+                <h3>৳ {{ (int)$today_sell }}</h3>
+                <p>Sold In Today</p>
             </div>
-          </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $today_net_profit }}</h2>
-                <p class="card-text">Profit In Today</p>
-              </div>
-              <div class="avatar bg-light-warning p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon font-medium-5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                </div>
-              </div>
+        <div class="col-md-3">
+            <div class="card card2">
+                <h3>৳ {{ empty($today_gross_profit->sums) ? 0 : (int)$today_gross_profit->sums}}</h3>
+                <p>Purchase In Today</p>
             </div>
-          </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card3">
+                <h3>৳ {{ (int)$today_expenses }}</h3>
+                <p>Expense In Today</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card4">
+                <h3>৳ {{ (int)$today_net_profit }}</h3>
+                <p>Profit In Today</p>
+            </div>
         </div>
     </div>
 
     {{-- monthly calculations --}}
-    <div class="row">
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header" >
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ (int)$monthly_sell }}</h2>
-                <p class="card-text">Sold In {{ $current_month_name }}</p>
-              </div>
-              <div class="avatar bg-light-primary p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu font-medium-5"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                </div>
-              </div>
+    <div class="row dashboard-cards">
+        <div class="col-md-3">
+            <div class="card card5">
+                <h3>৳ {{ (int)$monthly_sell }}</h3>
+                <p>Sold In {{ $current_month_name }}</p>
             </div>
-          </div>
         </div>
-         <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ empty($monthly_gross_profit->sums) ? 0 : $monthly_gross_profit->sums}} </h2>
-                <p class="card-text">Purchase In {{ $current_month_name }}</p>
-              </div>
-              <div class="avatar bg-light-success p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server font-medium-5"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                </div>
-              </div>
+        <div class="col-md-3">
+            <div class="card card6">
+                <h3>৳ {{ empty($monthly_gross_profit->sums) ? 0 : (int)$monthly_gross_profit->sums}}</h3>
+                <p>Purchase In {{ $current_month_name }}</p>
             </div>
-          </div>
         </div>
-
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $monthly_expenses }}</h2>
-                <p class="card-text">Expense In {{ $current_month_name }}</p>
-              </div>
-              <div class="avatar bg-light-danger p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity font-medium-5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                </div>
-              </div>
+        <div class="col-md-3">
+            <div class="card card7">
+                <h3>৳ {{ (int)$monthly_expenses }}</h3>
+                <p>Expense In {{ $current_month_name }}</p>
             </div>
-          </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $monthly_net_profit }}</h2>
-                <p class="card-text">Profit In {{ $current_month_name }}</p>
-              </div>
-              <div class="avatar bg-light-warning p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon font-medium-5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                </div>
-              </div>
+        <div class="col-md-3">
+            <div class="card card8">
+                <h3>৳ {{ (int)$monthly_net_profit }}</h3>
+                <p>Profit In {{ $current_month_name }}</p>
             </div>
-          </div>
         </div>
     </div>
 
     {{-- yearly calculations --}}
-    <div class="row">
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header" >
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ (int)$yearly_sell }}</h2>
-                <p class="card-text">Sold In {{ $current_year }}</p>
-              </div>
-              <div class="avatar bg-light-primary p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu font-medium-5"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                </div>
-              </div>
+    <div class="row dashboard-cards">
+        <div class="col-md-3">
+            <div class="card card9">
+                <h3>৳ {{ (int)$yearly_sell }}</h3>
+                <p>Sold In {{ $current_year }}</p>
             </div>
-          </div>
         </div>
-         <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ empty($yearly_gross_profit->sums) ? 0 : $yearly_gross_profit->sums}}</h2>
-                <p class="card-text">Purchase In {{ $current_year }}</p>
-              </div>
-              <div class="avatar bg-light-success p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server font-medium-5"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                </div>
-              </div>
+        <div class="col-md-3">
+            <div class="card card10">
+                <h3>৳ {{ empty($yearly_gross_profit->sums) ? 0 : (int)$yearly_gross_profit->sums}}</h3>
+                <p>Purchase In {{ $current_year }}</p>
             </div>
-          </div>
         </div>
-
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $yearly_expenses }}</h2>
-                <p class="card-text">Expenses In {{ $current_year }}</p>
-              </div>
-              <div class="avatar bg-light-danger p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity font-medium-5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                </div>
-              </div>
+        <div class="col-md-3">
+            <div class="card card11">
+                <h3>৳ {{ (int)$yearly_expenses }}</h3>
+                <p>Expense In {{ $current_year }}</p>
             </div>
-          </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12 mb-2">
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <h2 class="fw-bolder mb-0">৳ {{ $yearly_net_profit }}</h2>
-                <p class="card-text">Profit In {{ $current_year }}</p>
-              </div>
-              <div class="avatar bg-light-warning p-50 m-0">
-                <div class="avatar-content">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon font-medium-5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                </div>
-              </div>
+        <div class="col-md-3">
+            <div class="card card12">
+                <h3>৳ {{ (int)$yearly_net_profit }}</h3>
+                <p>Profit In {{ $current_year }}</p>
             </div>
-          </div>
         </div>
     </div>
 

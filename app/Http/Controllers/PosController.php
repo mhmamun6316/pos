@@ -51,7 +51,7 @@ class PosController extends Controller
         $cartTotal = Cart::total();
         return response()->json([
             'carts' => $carts,
-            'cartTotal' => $cartTotal,
+            'cartTotal' => (int)$cartTotal,
         ]);
     }
 

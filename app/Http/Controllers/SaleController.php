@@ -115,24 +115,33 @@ class SaleController extends Controller
         Cart::destroy();
 
 
+        // $sales = DB::table('sales')
+        //     ->where('sales.id',$order_id)
+        //     ->join('outlets','sales.outlet_id','outlets.id')
+        //     ->join('customers','sales.customer_id','customers.id')
+        //     ->join('sale_items','sales.id','sale_items.order_id')
+        //     ->select('sales.*','sale_items.*','outlets.name as outlet_name','customers.*')
+        //     ->get();
+
+        // $data = [
+        //     'title' => 'Welcome to rakhi electronics',
+        //     'date' => date('m/d/Y'),
+        //     'sales' => $sales,
+        //     'sale' => $sales[0]
+        // ];
+
+        // $pdf = PDF::loadView('reports/invoice', $data);
+
+        // return $pdf->stream();
+
         $sales = DB::table('sales')
-            ->where('sales.id',$order_id)
-            ->join('outlets','sales.outlet_id','outlets.id')
-            ->join('customers','sales.customer_id','customers.id')
-            ->join('sale_items','sales.id','sale_items.order_id')
-            ->select('sales.*','sale_items.*','outlets.name as outlet_name','customers.*')
-            ->get();
+        ->join('outlets','sales.outlet_id','outlets.id')
+        ->join('customers','sales.customer_id','customers.id')
+        ->select('sales.*','outlets.name as outlet_name','customers.name as customer_name')
+        ->orderBy('sales.id','DESC')
+        ->get();
 
-        $data = [
-            'title' => 'Welcome to rakhi electronics',
-            'date' => date('m/d/Y'),
-            'sales' => $sales,
-            'sale' => $sales[0]
-        ];
-
-        $pdf = PDF::loadView('reports/invoice', $data);
-
-        return $pdf->stream();
+        return view('pos.index',compact('sales'));
     }
 
     /**

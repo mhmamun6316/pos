@@ -191,7 +191,7 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <button type="button" class="calculateBtn btn btn-primary" style="margin-right: 5px;">Calculate</button>
+        {{-- <button type="button" class="calculateBtn btn btn-primary" style="margin-right: 5px;">Calculate</button> --}}
 
         <a target="_blank" ><button type="submit" class="btn btn-success">Sale</button></a>
     </div>
@@ -246,34 +246,29 @@
              url: "/pos",
              dataType: 'json',
              success: function(response) {
-                 console.log(response)
                  var rows = ""
                  $.each(response.carts, function(key, value) {
 
-                     rows += ` <tr>
+                     rows += ` <tr class="text-center">
                                  <td>
                                      ${value.name}
                                  </td>
                                  <td>
-                                     <div class="product-quantity">
-                                         <div class="qty">
-                                             <div class="input-group text-center">
-                                                 <span class="adjust-qty d-flex justify-content-center">
-                                                     <span class="btn btn-sm btn-primary" id="${value.rowId}" onclick="cartIncrement(this.id)">+</span>
-                                                     <input class="form-control" readonly type="text"  value="${value.qty}" data-min="1" style="width:50%">
-                                                     <span class="btn btn-sm btn-danger" id="${value.rowId}" onclick="cartDecrement(this.id)">-</span>
-                                                 </span>
-                                             </div>
-                                         </div>
-                                     </div>
+                                    <div class="input-group">
+                                        <span class="d-flex justify-content-center">
+                                            <span class="btn btn-sm btn-primary d-flex align-items-center" id="${value.rowId}" onclick="cartIncrement(this.id)">+</span>
+                                            <input class="form-control text-center" readonly type="text"  value="${value.qty}" data-min="1" style="width:50%">
+                                            <span class="btn btn-sm btn-danger d-flex align-items-center" id="${value.rowId}" onclick="cartDecrement(this.id)">-</span>
+                                        </span>
+                                    </div>
                                  </td>
-                                 <td class="text-center">
+                                 <td>
                                      ৳ ${value.price}
                                  </td>
-                                 <td class="text-center">
+                                 <td>
                                      ৳ ${value.subtotal}
                                  </td>
-                                 <td class="product-remove">
+                                 <td>
                                      <a title="Remove this item" class="remove" href="#" id="${value.rowId}" onclick="CartRemove(this.id)">
                                          <i class="fa fa-times"></i>
                                      </a>
@@ -282,16 +277,15 @@
                  });
                  rows += `
                         <tr class="cart-total text-center">
-                            <td colspan="1" class="text-right">Total: ৳ <span class="min_total">${response.cartTotal}</span></td>
+                            <td>Total: ৳ <span class="min_total">${response.cartTotal}</span></td>
 
-                            <td colspan="1" class="text-right">Special Disc: <input type="number" name="special_disc" class="special_disc" placeholder="0" style="width:50%"></td>
+                            <td>Special Disc: <input type="number" name="special_disc" class="special_disc" onkeyup="calculate()" placeholder="0" style="width:50%"></td>
 
-                            <td colspan="1" class="text-right">Vat(%): <input class="vat" type="number" name="vat" placeholder="0" style="width:50%"></td>
+                            <td>Vat(%): <input class="vat" type="number" name="vat" onkeyup="calculate()" placeholder="0" style="width:50%"></td>
 
-                            <td colspan="1" class="text-right">Discount (%): <input type="number" class="percent_disc" name="percent_disc" placeholder="0" style="width:50%"></td>
+                            <td>Discount (%): <input type="number" class="percent_disc" name="percent_disc" onkeyup="calculate()" placeholder="0" style="width:50%"></td>
 
-                            <td colspan="1" class="text-right">
-                                Payable: <input class="grand_total" type="number" name="grand_total" placeholder="0" style="width:50%" value="${response.cartTotal}">
+                            <td>Payable: <input readonly class="grand_total" type="number" name="grand_total" placeholder="0"    style="width:50%" value="${response.cartTotal}">
                             </td>
                         </tr>`
                  $('.allPos').html(rows);
@@ -358,7 +352,7 @@
      var percent_disc = 0;
      var vat = 0;
 
-     $(document).on('click','.calculateBtn',function(){
+     function calculate(){
         if($('.special_disc').val()){
             special_disc = Number($('.special_disc').val())
         }
@@ -380,7 +374,7 @@
         min_total -= p_discount;
 
         $('.grand_total').val(min_total);
-     });
+     }
 
 </script>
 @endsection
