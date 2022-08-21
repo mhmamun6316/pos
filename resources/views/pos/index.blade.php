@@ -10,10 +10,55 @@
     .bg-primary th{
         color: white!important;
     }
+
+    .filters .col-md-4{
+        margin-bottom: 3px;
+    }
 </style>
 @endsection
 
 @section('main_content')
+
+<div class="row">
+    <div class="col-12">
+        <div class="card p-2 card-top">
+            <form action="{{ URL::current() }}" method="get">
+                <div class="row filters">
+                    <div class="col-md-4">
+                        <label for="">From Date</label>
+                        <input type="date" class="form-control" name="start_date" placeholder="star">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="">To Date</label>
+                        <input type="date" class="form-control" name="end_date" >
+                    </div>
+                    <div class="col-md-4">
+                        <label for="">Invoice No.</label>
+                        <input type="text" class="form-control" name="invoice_number" placeholder="invoice_number">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="">Customer Name</label>
+                        <input type="text" class="form-control" name="customer_name" placeholder="customer_name">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="">Outlets</label>
+                        <select name="outlet" id="" class="form-control">
+                            <option value="" selected>Select a outlet</option>
+                            @foreach ($outlets as $outlet)
+                                <option value="{{ $outlet->id }}">{{ $outlet->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary" style="margin-right:5px;">Filter</button>
+                        <a href="{{ route('sales.index') }}" class="btn btn-success">Reset</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <section id="basic-datatable">
     <div class="row">

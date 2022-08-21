@@ -42,6 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public const SUPERADMIN = 1;
+    public const CASHIER = 2;
+
     const ROLE = [
         1 => 'Super-admin',
         2 => 'Cashier'

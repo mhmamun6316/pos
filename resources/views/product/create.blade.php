@@ -195,7 +195,7 @@
                     <label class="form-label"><h4><span class="error">*</span> Applicable Tax :</h4></label>
                     <select class="form-select" id="tax" name="tax" onchange="calculateDpp()">
                         <option  value="">Please Select</option>
-                        <option value="none" selected="selected">None</option>
+                        <option value="0" selected="selected">None</option>
                         <option value="10" >VAT@10%</option>
                         <option value="10" >CGST@10%</option>
                         <option value="8" >SGST@8%</option>
@@ -246,7 +246,7 @@
                     </td>
                     <td>
                         <label for=""></label>
-                        <input type="text" readonly name="profit_percent" id="profit_percent" class="form-control">
+                        <input type="text" name="profit_percent" id="profit_percent" class="form-control">
                     </td>
                     <td>
                         <div class="form-group">
@@ -273,33 +273,42 @@
 
     // calculating default purchase price basis of tax
     function calculateDpp() {
-        var _applicable_tax = parseInt($('select[name="tax"]').val());
-        var _single_dpp = parseInt($('#single_dpp').val());
-        var _including_tax_dpp = $('#including_tax_dpp');
-        if(_applicable_tax){
-            _single_dpp = (_single_dpp + (_single_dpp * _applicable_tax / 100)).toFixed(2);
-            _including_tax_dpp.val(_single_dpp);
+        applicable_tax = parseInt($('select[name="tax"]').val());
+        single_dpp = parseInt($('#single_dpp').val());
+        including_tax_dpp = $('#including_tax_dpp');
+        margin = $('#profit_percent').val();
+
+        if(margin){
+            purchase_price = single_dpp + (single_dpp * applicable_tax / 100);
+            including_tax_dpp.val(purchase_price);
+
+            selling_price = purchase_price  + (margin*purchase_price)/100;
+            $('#including_tax_dsp').val(selling_price);
         }else{
-            _including_tax_dpp.val(_single_dpp);
+            purchase_price = single_dpp + (single_dpp * applicable_tax / 100);
+            including_tax_dpp.val(purchase_price);
         }
     }
 
-    // calculate sell margin in %
-    $('#including_tax_dsp').on('keyup',function(){
-        var _including_tax_dsp = parseInt($('#including_tax_dsp').val());
-        var _including_tax_dpp = parseInt($('#including_tax_dpp').val());
-        var _profit_percent = $('#profit_percent');
+    // calculating selling price from margin
+    $('#profit_percent').on('keyup',function(){
+        margin = parseInt($(this).val());
+        including_tax_dpp = parseInt($('#including_tax_dpp').val());
 
-        if(_including_tax_dpp){
-            profit_percent = _including_tax_dsp - _including_tax_dpp;
-            profit_percent = (profit_percent / _including_tax_dpp) * 100;
-            if(isNaN(profit_percent)){
-
-            }else{
-            _profit_percent.val(profit_percent.toFixed(2));
-            }
-        }
+        selling_price = including_tax_dpp  + (margin*including_tax_dpp)/100;
+        $('#including_tax_dsp').val(selling_price);
     })
+
+    // calculating margin from selling price
+    $('#including_tax_dsp').on('keyup',function(){
+        selling_price = parseInt($(this).val());
+        including_tax_dpp  = parseInt($('#including_tax_dpp').val());
+
+        profit = selling_price - including_tax_dpp;
+        margin = (profit*100)/including_tax_dpp;
+        $('#profit_percent').val(margin);
+    })
+
 
     jQuery.extend(jQuery.validator.messages, {
         required: "This field is required",

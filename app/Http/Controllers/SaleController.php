@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\SaleItem;
 use App\Models\SaleDue;
+use App\Models\Outlet;
 use Illuminate\Http\Request;
 use Cart;
 use Carbon\Carbon;
@@ -21,16 +22,32 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sales = DB::table('sales')
-                 ->join('outlets','sales.outlet_id','outlets.id')
-                 ->join('customers','sales.customer_id','customers.id')
-                 ->select('sales.*','outlets.name as outlet_name','customers.name as customer_name')
-                 ->orderBy('sales.id','DESC')
-                 ->get();
 
-        return view('pos.index',compact('sales'));
+        $startDate = $request['start_date'] ?? "";
+        $endDate = $request['end_date'] ?? "";
+
+        $outlets = Outlet::all();
+
+        $salesBuilder = Sale::select([
+                'sales.*',
+                'outlets.name as outlet_name',
+                'customers.name as customer_name'
+        ]);
+
+        $salesBuilder->join('outlets','sales.outlet_id','outlets.id')
+                     ->join('customers','sales.customer_id','customers.id');
+
+        if(!empty($startDate) && !empty($endDate)){
+            $salesBuilder->whereDate('sales.created_at','>=',$startDate)
+                         ->whereDate('sales.created_at','<=',$endDate);
+        }
+
+        $sales = $salesBuilder->orderBy('sales.id','DESC')
+                              ->get();
+
+        return view('pos.index',compact('sales','outlets'));
     }
 
     /**

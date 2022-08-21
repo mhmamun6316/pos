@@ -1,11 +1,7 @@
 @extends('layouts.admin_master')
 
 @section('css')
-    <style>
-        .bg-primary th{
-            color: white!important;
-        }
-    </style>
+
 @endsection
 
 @section('main_content')
@@ -76,9 +72,11 @@
                     <th scope="col">Outlet</th>
                     <th scope="col">Brand</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Purchase Price</th>
                     <th scope="col">Selling Price</th>
-                    <th scope="col">Action</th>
+                    @if (Auth::user()->role_id == 1)
+                        <th scope="col">Purchase Price</th>
+                        <th scope="col">Action</th>
+                    @endif
                   </tr>
               </thead>
               <tbody id="tableBody" class="text-center">
@@ -122,19 +120,23 @@
 
                     </div>
                 </div>
+
+
                 <div class="row">
                     <div class="col-md-12">
                         <p><b>Product Details:</b></p>
                         <div class="table-responsive mb-3">
                             <table class="table bg-gray">
-                                <tbody class="pbody">
-                                    <tr class="bg-primary">
+                                <thead>
+                                    <tr class="bg-success">
                                         <th>Default Purchase Price (Exc. tax)</th>
                                         <th>Default Purchase Price (Inc. tax)</th>
                                         <th>x Margin(%)</th>
                                         <th>x Margin(Tk)</th>
                                         <th>Default Selling Price (Inc. tax)</th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <tr>
                                         <td>
                                             <span class="exc_dpp"></span><span>Tk</span>
@@ -158,8 +160,8 @@
                         <p><b>Product Stock Details:</b></p>
                         <div class="table-responsive mb-2">
                             <table class="table bg-gray">
-                                <tbody class="pbody">
-                                    <tr class="bg-primary">
+                                <thead>
+                                    <tr class="bg-success">
                                         <th>SKU</th>
                                         <th>Product</th>
                                         <th>Unit Price</th>
@@ -169,6 +171,8 @@
                                         <th>Total Unit Transfered</th>
                                         <th>Total Unit Adjusted</th>
                                     </tr>
+                                </thead>
+                                <tbody class="pbody">
                                     <tr>
                                         <td>
                                             <span class="pro_sku"></span>
@@ -242,17 +246,17 @@
                                 <td>${item.outlet_name ? item.outlet_name : " "}</td>
                                 <td>${item.brand_name ? item.brand_name : " "}</td>
                                 <td>${item.categories_name ? item.categories_name : " "}</td>
-                                <td>${role == 'Super-admin' ? item.inc_purchase_price  : " "}</td>
-                                <td>${item.selling_price}</td>
-                                <td>
-                                    <button class="btn btn-sm btn-success viewBtn" value="${item.id}"><i class="fas fa-eye"></i></button>`
-
-                                    if(role == 'Super-admin'){
-                                        cc += `<a href="{{ url('products/${item.id}/edit') }}" class="btn btn-sm btn-warning" value="${item.id}"><i class="fa fa-pencil-alt"></i></a>
-                                        <button class="btn btn-sm btn-danger deleteBtn" value="${item.id}"><i class="fas fa-trash"></i></button>`
-                                    }
-                               cc += `</td>
-                            </tr>`
+                                <td>${item.selling_price}</td>`
+                                if(role == 'Super-admin')
+                                {
+                                    cc += `<td>${item.inc_purchase_price}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success viewBtn" value="${item.id}"><i class="fas fa-eye"></i></button>
+                                            <a href="{{ url('products/${item.id}/edit') }}" class="btn btn-sm btn-warning" value="${item.id}"><i class="fa fa-pencil-alt"></i></a>
+                                            <button class="btn btn-sm btn-danger deleteBtn" value="${item.id}"><i class="fas fa-trash"></i></button>
+                                    </td>`
+                                }
+                            cc += `</tr>`
                     $('#tableBody').append(cc);
                 });
                 $('#example').DataTable({

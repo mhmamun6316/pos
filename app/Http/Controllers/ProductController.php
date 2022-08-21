@@ -65,12 +65,14 @@ class ProductController extends Controller
     }
 
     public function stockProduct(){
+        $role = User::ROLE[Auth::user()->role_id];
         $products =Product::orderBy('name','ASC')->with('brand','outlet','category','subcategory')->get();
 
         $qty = Product::sum('quantity');
         return view('product.stock',compact(
             'products',
             'qty',
+            'role'
         ));
     }
 
