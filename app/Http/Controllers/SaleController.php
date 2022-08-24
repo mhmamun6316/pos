@@ -27,6 +27,9 @@ class SaleController extends Controller
 
         $startDate = $request['start_date'] ?? "";
         $endDate = $request['end_date'] ?? "";
+        $invoiceNumber = $request['invoice_number'] ?? "";
+        $customerName = $request['customer_name'] ?? "";
+        $outlet = $request['outlet'] ?? "";
 
         $outlets = Outlet::all();
 
@@ -42,6 +45,18 @@ class SaleController extends Controller
         if(!empty($startDate) && !empty($endDate)){
             $salesBuilder->whereDate('sales.created_at','>=',$startDate)
                          ->whereDate('sales.created_at','<=',$endDate);
+        }
+
+        if(!empty($invoiceNumber)){
+            $salesBuilder->where('sales.invoice_no', 'like', '%' . $invoiceNumber . '%');
+        }
+
+        if(!empty($customerName)){
+            $salesBuilder->where('customers.name', 'like', '%' . $customerName . '%');
+        }
+
+        if(!empty($outlet) && is_numeric($outlet)){
+            $salesBuilder->where('outlets.id','=',$outlet);
         }
 
         $sales = $salesBuilder->orderBy('sales.id','DESC')

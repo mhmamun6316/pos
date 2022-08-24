@@ -317,4 +317,23 @@ class ReportController extends Controller
 
         return $pdf->stream();
     }
+
+    public function summaryReport()
+    {
+        $visitors = Sale::select(
+                        'sales.id as sales_id',
+                        'sale_items.order_id as order_id',
+                        'products.id as product_id',
+                        DB::raw("(Date(sales.created_at)) as date"),
+                        DB::raw("(sum(sales.total)) as sell_amount"),
+                        DB::raw("(sum(products.inc_purchase_price)) as purchase_amount")
+                  )
+            ->join('sale_items','sale_items.order_id','sales.id')
+            ->join('products','products.id','sale_items.product_id')
+            ->whereMonth(DB::raw('Date(sales.created_at)'),Carbon::now()->format('m'))
+            ->groupBy(DB::raw('Date(sales.created_at)'))
+            ->get();
+
+        $sales = $visitors->toArray();
+    }
 }
